@@ -1,0 +1,25 @@
+{
+  "student": [
+    {
+      "studentCode": "STU001",
+      "name": "Ashish Dilip Bawne",
+      "email": "ashishbawne28@gmail.com",
+      "mobile": "7709101322",
+      "course": "B.Tech",
+      "city": "Murtizapur",
+      "collegename": "YCCE",
+      "id": "5vT8E-l2WMw"
+    },
+    {
+      "studentCode": "STU002",
+      "name": "John Saass",
+      "email": "johnSa@gmail.com",
+      "mobile": "5464646464",
+      "course": "MCA",
+      "city": "Akola",
+      "collegename": "DYPatik",
+      "id": "hJ708a6KaHY"
+    }
+  ],
+  "$schema": "./node_modules/json-server/schema.json"
+}

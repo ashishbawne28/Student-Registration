@@ -1,0 +1,250 @@
+
+<div class="student-table-section">
+
+  <div class="table-card">
+
+    <div class="table-heading">
+      <h2>Registered Students</h2>
+      <p>Manage all registered student details</p>
+      <p>Total Students: {{ students.length }}</p>
+    </div>
+
+    <!-- Student Table -->
+    <div class="table-responsive" *ngIf="students.length > 0">
+
+      <table class="table student-table align-middle">
+
+        <thead>
+          <tr>
+            <th>Student Code</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Mobile</th>
+            <th>Course</th>
+            <th>City</th>
+            <th>College</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+
+        <tbody>
+
+          <tr *ngFor="let student of students">
+
+            <td>{{ student.studentCode }}</td>
+            <td>{{ student.fullName }}</td>
+            <td>{{ student.email }}</td>
+            <td>{{ student.mobile }}</td>
+            <td>{{ student.course }}</td>
+            <td>{{ student.city }}</td>
+            <td>{{ student.collegeName }}</td>
+
+            <td>
+              <div class="student-actions">
+
+                <button
+                  type="button"
+                  class="btn btn-edit"
+                  (click)="editStudent(student)">
+                  Edit
+                </button>
+
+                <button
+                  type="button"
+                  class="btn btn-delete"
+                  (click)="deleteStudent(student.id!)">
+                  Delete
+                </button>
+
+              </div>
+            </td>
+
+          </tr>
+
+        </tbody>
+
+      </table>
+
+    </div>
+
+    <!-- Empty Message -->
+    <div *ngIf="students.length === 0">
+      <h3>No Students Registered Yet</h3>
+      <p>Register a student to see the details here.</p>
+    </div>
+
+  </div>
+
+</div>
+
+
+<!-- Edit Popup -->
+<div class="modal-overlay" *ngIf="isEditPopupOpen">
+
+  <div class="edit-modal">
+
+    <div class="modal-header">
+
+      <div>
+        <h2>Update Student Details</h2>
+        <p>Edit your student information</p>
+      </div>
+
+      <button
+        type="button"
+        class="close-btn"
+        (click)="closeEditPopup()">
+        &times;
+      </button>
+
+    </div>
+
+    <div class="modal-body">
+
+      <div class="update-grid">
+
+        <!-- Full Name -->
+        <div class="input-group">
+          <label>Full Name</label>
+
+          <input
+            type="text"
+            name="fullName"
+            class="custom-input"
+            [(ngModel)]="selectedStudent.fullName"
+            #fullName="ngModel"
+            required
+            minlength="3"
+            maxlength="50"
+            pattern="[a-zA-Z ]+">
+
+          <small class="text-danger"
+            *ngIf="fullName.invalid && (fullName.touched || submitted)">
+            Enter a valid name (minimum 3 letters).
+          </small>
+        </div>
+
+        <!-- Email -->
+        <div class="input-group">
+          <label>Email Address</label>
+
+          <input
+            type="email"
+            name="email"
+            class="custom-input"
+            [(ngModel)]="selectedStudent.email"
+            #email="ngModel"
+            required
+            email>
+
+          <small class="text-danger"
+            *ngIf="email.invalid && (email.touched || submitted)">
+            Enter a valid email address.
+          </small>
+        </div>
+
+        <!-- Mobile -->
+        <div class="input-group">
+          <label>Mobile Number</label>
+
+          <input
+            type="text"
+            name="mobile"
+            class="custom-input"
+            [(ngModel)]="selectedStudent.mobile"
+            #mobile="ngModel"
+            required
+            maxlength="10"
+            pattern="[6-9][0-9]{9}">
+
+          <small class="text-danger"
+            *ngIf="mobile.invalid && (mobile.touched || submitted)">
+            Enter a valid 10-digit mobile number.
+          </small>
+        </div>
+
+        <!-- Course -->
+        <div class="input-group">
+          <label>Course</label>
+
+          <select
+            name="course"
+            class="custom-input"
+            [(ngModel)]="selectedStudent.course"
+            #course="ngModel"
+            required>
+
+            <option value="" disabled>Select Course</option>
+            <option value="B.Tech">B.Tech</option>
+            <option value="B.E">B.E</option>
+            <option value="BCA">BCA</option>
+            <option value="MCA">MCA</option>
+            <option value="B.Sc">B.Sc</option>
+            <option value="M.Sc">M.Sc</option>
+            <option value="MBA">MBA</option>
+
+          </select>
+
+          <small class="text-danger"
+            *ngIf="course.invalid && (course.touched || submitted)">
+            Please select a course.
+          </small>
+        </div>
+
+        <!-- City -->
+        <div class="input-group">
+          <label>City</label>
+
+          <input
+            type="text"
+            name="city"
+            class="custom-input"
+            [(ngModel)]="selectedStudent.city"
+            #city="ngModel"
+            required
+            pattern="[a-zA-Z ]+">
+
+          <small class="text-danger"
+            *ngIf="city.invalid && (city.touched || submitted)">
+            Enter a valid city name.
+          </small>
+        </div>
+
+        <!-- College Name -->
+        <div class="input-group">
+          <label>College Name</label>
+
+          <input
+            type="text"
+            name="collegeName"
+            class="custom-input"
+            [(ngModel)]="selectedStudent.collegeName"
+            #collegeName="ngModel"
+            required
+            minlength="3">
+
+          <small class="text-danger"
+            *ngIf="collegeName.invalid && (collegeName.touched || submitted)">
+            College name must contain at least 3 characters.
+          </small>
+        </div>
+
+      </div>
+
+      <!-- Update Button -->
+      <div class="modal-footer">
+
+        <button
+          type="button"
+          class="update-btn"
+          (click)="updateStudent()">
+          Update Student →
+        </button>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
